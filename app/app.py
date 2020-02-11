@@ -2,20 +2,23 @@ import os
 import ColourDescriptor
 import Searcher
 
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, redirect, url_for, send_from_directory
+from werkzeug.utils import secure_filename
+
 
 from skimage import io
 import cv2
+#import psycopg2
 
 # Create flask instance
 app = Flask(__name__)
 
-INDEX = os.path.join(os.path.dirname(__file__), 'index.csv')
 
 # Main route
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 # Search route
 @app.route('/search', methods=['POST'])
@@ -52,6 +55,43 @@ def search():
 		except:
 			# Return error
 			return jsonify({"sorry": "Sorry, no results! Try again"}), 500
+
+@app.route("/upload-image", methods=["GET", "POST"])
+def upload_image():
+
+    if request.method == "POST":
+
+        if request.files:
+
+            image = request.files["image"]
+
+            print(image)
+
+            return redirect(request.url)
+            
+
+    return render_template("index.html")
+
+
+
+# Using CSV file with no database
+INDEX = os.path.join(os.path.dirname(__file__), 'index.csv')
+
+# Using db
+# host = "localhost"
+# dbname = "postgres"
+# user = "postgres"
+# conn = psycopg2.connect("host=" + str(host) + " dbname=" + str(dbname) + "postgres user=" + str(user) + "postgres")
+# cur = conn.cursor()
+# cur.execute("""
+# 	CREATE TABLE users(
+# 	id integer PRIMARY KEY,
+# 	featureVectors text)
+# """)
+# cur.execute('SELECT * FROM notes')
+# one = cur.fetchone()
+# all = cur.fetchall()
+
 
 # run!
 if __name__ == '__main__':

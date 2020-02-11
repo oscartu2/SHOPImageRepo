@@ -1,43 +1,66 @@
 {% extends "_base.html" %}
 
 {% block content %}
+  
+  <div class="row">
+    <div class="col">
 
-<div class="row">
+      <h1>ImageSearch</h1>
+      <br>
+      <hr>
+      <br>
+      <form action="/upload-image" method="POST" enctype="multipart/form-data">
 
-	<div class="col-md-7">
-		<h2>Select an Image</h2>
-		<br>
-		<div class="row">
-			<div class="col-md-6">
-				<p><img src="http://static.pyimagesearch.com.s3-us-west-2.amazonaws.com/vacation-photos/queries/103100.png" style="height: 250px;" class="img"></p>
-        		<p><img src="http://static.pyimagesearch.com.s3-us-west-2.amazonaws.com/vacation-photos/queries/103300.png" style="height: 250px;" class="img"></p>
-      		</div>
-	      	<div class="col-md-6">
-		        <p><img src="http://static.pyimagesearch.com.s3-us-west-2.amazonaws.com/vacation-photos/queries/127502.png" style="height: 250px;" class="img"></p>
-		        <p><img src="http://static.pyimagesearch.com.s3-us-west-2.amazonaws.com/vacation-photos/queries/123600.png" style="height: 250px;" class="img"></p>
-	      	</div>
-    	</div>
+        <div class="form-group">
+          <!-- <label>Select image</label> -->
+          <div class="custom-file">
+            <input type="file" class="custom-file-input" name="image" id="image">
+            <label class="custom-file-label" for="image">Choose image...</label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Upload</button>
+
+      </form>
+
+    </div>
   </div>
 
-  <div class="col-md-3 col-md-offset-1">
-    <h2>Results</h2>
-    <br>
-    <p id="searching">Searching...</p>
-    <p id="error">Oh no! No results! Check your internet connection.</p>
-    <table class="table" id="results-table">
-      <thead>
-        <tr>
-          <th>Image</th>
-          <th>Score</th>
-        </tr>
-      </thead>
-      <tbody id="results">
-      </tbody>
-    </table>
+  <div class="row">
+    <div class="col-md-7">
+        <h2>Select an Image</h2>
+        <br>
+        <div class="row">
+          <div class="col-md-6">
+            <p><img src="http://static.pyimagesearch.com.s3-us-west-2.amazonaws.com/vacation-photos/queries/103100.png" style="height: 250px;" class="img"></p>
+                <p><img src="http://static.pyimagesearch.com.s3-us-west-2.amazonaws.com/vacation-photos/queries/103300.png" style="height: 250px;" class="img"></p>
+              </div>
+              <div class="col-md-6">
+                <p><img src="http://static.pyimagesearch.com.s3-us-west-2.amazonaws.com/vacation-photos/queries/127502.png" style="height: 250px;" class="img"></p>
+                <p><img src="http://static.pyimagesearch.com.s3-us-west-2.amazonaws.com/vacation-photos/queries/123600.png" style="height: 250px;" class="img"></p>
+              </div>
+          </div>
+      </div>
+
+      <div class="col-md-3 col-md-offset-1">
+        <h2>Results</h2>
+        <br>
+        <p id="searching">Searching...</p>
+        <p id="error">Oh no! No results! Check your internet connection.</p>
+        <table class="table" id="results-table">
+          <thead>
+            <tr>
+              <th>Image</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody id="results">
+          </tbody>
+        </table>
+      </div>
+     
+    </div>
   </div>
- 
-</div>
- 
 <br>
 
 {% endblock %}
